@@ -3,7 +3,7 @@ import 'remixicon/fonts/remixicon.css'
 
 const Arrow = () => {
   return (
-    <div className='text-8xl'>
+    <div className='text-6xl'>
         <i className="ri-arrow-right-up-line"></i>
       </div>
   )
