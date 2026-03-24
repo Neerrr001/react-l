@@ -5,7 +5,6 @@ const App = () => {
 
   const [title, setTitle] = useState('')
   const [details, setDetails] = useState('')
-
   const [task, setTask] = useState([])
   
   const submitHandler = (e)=>{
@@ -18,6 +17,13 @@ const App = () => {
     setTitle('')
     setDetails('')
   }
+
+  const deleteNote = (idx)=>{
+    const copyTask = [...task]
+    copyTask.splice(idx, 1)
+    setTask(copyTask)
+  }
+
 
   return (
     <div className="h-screen lg:flex bg-black text-white ">
@@ -52,13 +58,15 @@ const App = () => {
 
       <div className=" lg:border-l lg:w-1/2  p-10">
         <h1 className="text-4xl font-bold">Recent Notes</h1>
-        <div className='flex gap-5 flex-wrap items-start justify-start mt-5 h-full overflow-auto'>
+        <div className='flex gap-5 flex-wrap items-start justify-start mt-5 h-[90%] overflow-auto'>
         
             {task.map(function(elem , idx){
               
-              return <div key={idx} className=' relative h-50 w-45 rounded-xl p-4 text-black bg-cover
-               bg-[url("https://i.pinimg.com/736x/c2/2e/4e/c22e4e66586460c15b1e48c607cd1dc7.jpg")]'>
-                <h4 className="absolute cursor-pointer active:scale-{95} top-2 right-2 "><X size={18} strokeWidth={3} /></h4>
+              return <div key={idx} className=' relative h-52 w-44 rounded-xl p-4 text-black bg-cover
+                      bg-[url("https://i.pinimg.com/736x/c2/2e/4e/c22e4e66586460c15b1e48c607cd1dc7.jpg")]'>
+                <h4 onClick={()=>{
+                  deleteNote(idx);
+                }} className="absolute cursor-pointer active:scale-{95} top-2 right-2 "><X size={18} strokeWidth={3} /></h4>
                 <h3 className='leading-tight text-[18px] font-[650]'>{elem.title}</h3>
                 <p className='mt-2 leading-tight font-medium text-gray-800'>{elem.details}</p>
               </div>
