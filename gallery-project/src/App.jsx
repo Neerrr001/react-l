@@ -11,16 +11,16 @@ const App = () => {
   }, [index])
 
   const getData = async()=>{
-    const response = await axios.get(`https://picsum.photos/v2/list?page=${index}&limit=20`)
+    const response = await axios.get(`https://picsum.photos/v2/list?page=${index}&limit=10`)
     setUserData(response.data)
   }
 
-  let printUserData = <h3 className='text-gray-500 text-xs'>No user available</h3>
+  let printUserData = <h3 className=' absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-500 text-xs font-semibold'>Loading...</h3>
 
   if(userData.length > 0){
     printUserData = userData.map(function(elem, idx){
 
-      return <div>
+      return <div className=''>
         <a href={elem.url} target='_blank'>
         <div className='h-50 w-60 overflow-hidden rounded-xl'>
           <img className='h-full w-full object-cover'src={elem.download_url} alt="" />
@@ -33,8 +33,8 @@ const App = () => {
 
   return (
     <div className='bg-black overflow-y-auto h-screen p-4  text-white'>
-      <h1 className='fixed text-5xl'>{index}</h1>
-      <div className='flex p-4 flex-wrap gap-5'>
+
+      <div className='flex h-[85%] p-4 flex-wrap gap-5'>
         {printUserData}
       </div>
 
@@ -44,13 +44,16 @@ const App = () => {
          onClick={()=>{
           if(index>1){
           setIndex(index-1)
+          setUserData([])
           }
          }}>
          Prev
         </button>
+        <h4 className='font-medium'>Page {index}</h4>
         <button
          className='bg-emerald-400 text-white cursor-pointer active:scale-95 font-medium  px-4 py-2 rounded-xl '
          onClick={()=>{
+           setUserData([])
           setIndex(index+1)
          }}>
           Next
